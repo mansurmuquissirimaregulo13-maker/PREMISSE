@@ -11,10 +11,32 @@ const SuccessView: React.FC<SuccessViewProps> = ({ balance, onWithdraw }) => {
   const [accountName, setAccountName] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [isWithdrawing, setIsWithdrawing] = useState(false);
+  const [nameError, setNameError] = useState('');
+  const [accountError, setAccountError] = useState('');
 
   const handleWithdrawClick = (e: React.FormEvent) => {
     e.preventDefault();
-    if (accountName && accountNumber) {
+    
+    // Reset errors
+    setNameError('');
+    setAccountError('');
+    
+    let isValid = true;
+
+    // Validate full name (at least two words)
+    if (accountName.trim().split(/\s+/).length < 2) {
+      setNameError('Please enter your full name (first and last name).');
+      isValid = false;
+    }
+
+    // Validate account number (South African accounts are usually 9-11 digits, numeric only)
+    const accountRegex = /^\d{9,11}$/;
+    if (!accountRegex.test(accountNumber)) {
+      setAccountError('Please enter a valid account number (9-11 digits).');
+      isValid = false;
+    }
+
+    if (isValid) {
       setIsWithdrawing(true);
       // Simulate API call for withdrawal
       setTimeout(() => {
@@ -98,15 +120,20 @@ const SuccessView: React.FC<SuccessViewProps> = ({ balance, onWithdraw }) => {
                 type="text" 
                 required
                 value={accountName}
-                onChange={(e) => setAccountName(e.target.value)}
+                onChange={(e) => {
+                  setAccountName(e.target.value);
+                  if (nameError) setNameError('');
+                }}
                 style={{ 
                   padding: '12px 16px', 
                   borderRadius: '8px', 
-                  border: '1px solid var(--border-color)',
-                  fontSize: '16px'
+                  border: `1px solid ${nameError ? '#ef4444' : 'var(--border-color)'}`,
+                  fontSize: '16px',
+                  outline: 'none'
                 }} 
                 placeholder="John Doe"
               />
+              {nameError && <span style={{ color: '#ef4444', fontSize: '13px' }}>{nameError}</span>}
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -118,15 +145,21 @@ const SuccessView: React.FC<SuccessViewProps> = ({ balance, onWithdraw }) => {
                 type="text" 
                 required
                 value={accountNumber}
-                onChange={(e) => setAccountNumber(e.target.value)}
+                onChange={(e) => {
+                  setAccountNumber(e.target.value.replace(/\D/g, '')); // only allow digits while typing
+                  if (accountError) setAccountError('');
+                }}
+                maxLength={11}
                 style={{ 
                   padding: '12px 16px', 
                   borderRadius: '8px', 
-                  border: '1px solid var(--border-color)',
-                  fontSize: '16px'
+                  border: `1px solid ${accountError ? '#ef4444' : 'var(--border-color)'}`,
+                  fontSize: '16px',
+                  outline: 'none'
                 }} 
                 placeholder="123456789"
               />
+              {accountError && <span style={{ color: '#ef4444', fontSize: '13px' }}>{accountError}</span>}
             </div>
           </div>
 
