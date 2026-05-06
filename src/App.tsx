@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Header from './components/Header'
 import HomeView from './components/HomeView'
@@ -6,10 +6,31 @@ import TaskView from './components/TaskView'
 import SuccessView from './components/SuccessView'
 import VSLView from './components/VSLView'
 
+// Declare fbq for TypeScript
+declare global {
+  interface Window {
+    fbq: any;
+  }
+}
+
 function App() {
   const [currentView, setCurrentView] = useState<'home' | 'task' | 'success' | 'vsl'>('home')
   const [balance, setBalance] = useState<number>(0)
   const [taskIndex, setTaskIndex] = useState<number>(0)
+
+  // Track page views on view change
+  useEffect(() => {
+    if (window.fbq) {
+      window.fbq('track', 'PageView');
+      
+      // Track custom events for specific views
+      if (currentView === 'success') {
+        window.fbq('track', 'Lead');
+      } else if (currentView === 'vsl') {
+        window.fbq('track', 'ViewContent');
+      }
+    }
+  }, [currentView])
   
   // Loading & Feedback states
   const [isLoading, setIsLoading] = useState<boolean>(false)

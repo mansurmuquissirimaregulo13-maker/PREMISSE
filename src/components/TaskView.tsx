@@ -9,34 +9,34 @@ interface TaskViewProps {
 
 const tasks = [
   {
-    title: "Which shop front looks more professionally maintained?",
-    subtitle: "Your review helps local businesses. Tap to select.",
-    opt1: { img: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=500&q=80", label: "Shop A — Cape Town" },
-    opt2: { img: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=500&q=80", label: "Shop B — Johannesburg" }
+    title: "In which continent is South Africa located?",
+    subtitle: "Select the correct answer to earn your reward.",
+    opt1: { label: "Africa" },
+    opt2: { label: "Europe" }
   },
   {
-    title: "Which product display looks more appealing?",
-    subtitle: "Your review helps local businesses. Tap to select.",
-    opt1: { img: "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=500&q=80", label: "Display A" },
-    opt2: { img: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=500&q=80", label: "Display B" }
+    title: "What is the official currency of South Africa?",
+    subtitle: "Select the correct answer to earn your reward.",
+    opt1: { label: "South African Rand (R)" },
+    opt2: { label: "US Dollar ($)" }
   },
   {
-    title: "Which restaurant seating looks more comfortable?",
-    subtitle: "Your review helps local businesses. Tap to select.",
-    opt1: { img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&q=80", label: "Restaurant A" },
-    opt2: { img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&q=80", label: "Restaurant B" }
+    title: "Which of these is a famous South African city?",
+    subtitle: "Select the correct answer to earn your reward.",
+    opt1: { label: "Cape Town" },
+    opt2: { label: "London" }
   },
   {
-    title: "Which cafe exterior looks more inviting?",
-    subtitle: "Your review helps local businesses. Tap to select.",
-    opt1: { img: "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=500&q=80", label: "Cafe A" },
-    opt2: { img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500&q=80", label: "Cafe B" }
+    title: "Which of these is a capital city of South Africa?",
+    subtitle: "Select the correct answer to earn your reward.",
+    opt1: { label: "Pretoria" },
+    opt2: { label: "Paris" }
   },
   {
-    title: "Which supermarket aisle looks cleaner?",
-    subtitle: "Your review helps local businesses. Tap to select.",
-    opt1: { img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=500&q=80", label: "Supermarket A" },
-    opt2: { img: "https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=500&q=80", label: "Supermarket B" }
+    title: "Which animal is part of the 'Big Five' in South Africa?",
+    subtitle: "Select the correct answer to earn your reward.",
+    opt1: { label: "Lion" },
+    opt2: { label: "Penguin" }
   }
 ];
 
@@ -59,18 +59,18 @@ const TaskView: React.FC<TaskViewProps> = ({ taskIndex, totalTasks, onComplete }
         <div className="progress-bar" style={{ width: `${progressPercentage}%` }}></div>
       </div>
       
-      <h2 className="task-title">{task.title}</h2>
-      <p className="task-subtitle">{task.subtitle}</p>
+      <h2 className="task-title" style={{ fontSize: '22px', marginBottom: '8px' }}>{task.title}</h2>
+      <p className="task-subtitle" style={{ marginBottom: '24px' }}>{task.subtitle}</p>
 
-      <div className="options-grid">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
         <div 
           className={`option-card ${selected === 1 ? 'selected' : ''}`}
           onClick={() => setSelected(1)}
+          style={{ padding: '20px', textAlign: 'left', minHeight: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <img src={task.opt1.img} alt="Option 1" className="option-image" />
-          <div className="option-label">{task.opt1.label}</div>
+          <div className="option-label" style={{ margin: 0, fontSize: '18px', fontWeight: '600' }}>{task.opt1.label}</div>
           {selected === 1 && (
-            <div className="checkmark-circle">
+            <div className="checkmark-circle" style={{ position: 'static' }}>
               <Check size={16} />
             </div>
           )}
@@ -79,11 +79,11 @@ const TaskView: React.FC<TaskViewProps> = ({ taskIndex, totalTasks, onComplete }
         <div 
           className={`option-card ${selected === 2 ? 'selected' : ''}`}
           onClick={() => setSelected(2)}
+          style={{ padding: '20px', textAlign: 'left', minHeight: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <img src={task.opt2.img} alt="Option 2" className="option-image" />
-          <div className="option-label">{task.opt2.label}</div>
+          <div className="option-label" style={{ margin: 0, fontSize: '18px', fontWeight: '600' }}>{task.opt2.label}</div>
           {selected === 2 && (
-            <div className="checkmark-circle">
+            <div className="checkmark-circle" style={{ position: 'static' }}>
               <Check size={16} />
             </div>
           )}
@@ -95,7 +95,7 @@ const TaskView: React.FC<TaskViewProps> = ({ taskIndex, totalTasks, onComplete }
         disabled={selected === null}
         onClick={handleSubmit}
       >
-        Submit and earn <ArrowRight size={20} />
+        Confirm and continue <ArrowRight size={20} />
       </button>
     </div>
   );
