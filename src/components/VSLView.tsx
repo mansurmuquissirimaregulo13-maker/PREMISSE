@@ -98,7 +98,7 @@ const VSLView: React.FC = () => {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "https://scripts.converteai.net/39dd37f1-9099-41b0-92cb-4eb595b0933f/players/69f791ceb24661ffe15b8f1f/v4/player.js";
+    script.src = "https://scripts.converteai.net/b254c3e1-6389-4752-8a0b-73f0d48f9c18/players/6a0c0bb2f3e6800520594755/v4/player.js";
     script.async = true;
     document.head.appendChild(script);
 
@@ -217,7 +217,7 @@ const VSLView: React.FC = () => {
       {/* Vturb Player Container */}
       <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}>
         {/* @ts-ignore - custom web component */}
-        <vturb-smartplayer id="vid-69f791ceb24661ffe15b8f1f" style={{ display: 'block', margin: '0 auto', width: '100%' }}></vturb-smartplayer>
+        <vturb-smartplayer id="vid-6a0c0bb2f3e6800520594755" style={{ display: 'block', margin: '0 auto', width: '100%' }}></vturb-smartplayer>
       </div>
 
       {/* Facebook Style Comments Section */}
